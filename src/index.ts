@@ -1,8 +1,13 @@
 import fastify from 'fastify';
 import emailRouter from './routes/email.js';
 import cors from '@fastify/cors';
+import offersRoute from './routes/offers.js';
+import souceRouter from './routes/source.js';
+import { config } from 'dotenv';
+config();
 
 const server = fastify({ logger: true });
+const port = process.env.PORT;
 
 server.register(cors, {
 	origin: 'http://localhost:5173',
@@ -10,14 +15,13 @@ server.register(cors, {
 });
 
 server.register(emailRouter);
-server.get('/ping', async (request, reply) => {
-	return 'pong\n';
-});
+server.register(offersRoute);
+server.register(souceRouter);
 
 server.listen({ port: 3333 }, (err, address) => {
 	if (err) {
 		console.error(err);
 		process.exit(1);
 	}
-	console.log(`Server listening at ${address}`);
+	console.log(`Server listening at http://localhost:${port}`);
 });
