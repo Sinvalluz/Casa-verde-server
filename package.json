@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon ./dist/index.js",
+    "build": "tsc -p tsconfig.json",
     "start": "tsx src/index.ts"
   },
   "keywords": [],
